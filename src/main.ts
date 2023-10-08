@@ -6,45 +6,75 @@ const gameName = "Pet Band🤙";
 
 document.title = gameName;
 
+// Step 9
+interface Item {
+  name: string;
+  price: number;
+  rate: number;
+  purchased: number;
+}
+
+const availableItems: Item[] = [
+  { name: "🪗🦖", price: 10, rate: 0.1, purchased: 0 },
+  { name: "📸🦐", price: 100, rate: 2, purchased: 0 },
+  { name: "🎺🐛", price: 1000, rate: 50, purchased: 0 },
+];
+
+function updateText() {
+  growthRate.innerHTML = "Growth Rate: " + rateTotal.toFixed(2) + " 🕺/sec";
+  itemA.innerHTML =
+    availableItems[0].purchased +
+    " " +
+    availableItems[0].name +
+    " (price: " +
+    availableItems[0].price.toFixed(2) +
+    " " +
+    ")";
+  itemB.innerHTML =
+    availableItems[1].purchased +
+    availableItems[1].name +
+    " (price: " +
+    availableItems[1].price.toFixed(2) +
+    " " +
+    ")";
+  itemC.innerHTML =
+    availableItems[2].purchased +
+    availableItems[2].name +
+    " (price: " +
+    availableItems[2].price.toFixed(2) +
+    ")";
+}
+
 let counter: number = 0;
 function increaseCounter(change: number) {
   counter += change;
   counterText.innerHTML = `${Math.round(counter)} 🕺`;
   // Disables/enables the button based on the units collected
-  counter >= price[0]
+  counter >= availableItems[0].price
     ? (shopButtonA.disabled = false)
     : (shopButtonA.disabled = true);
-  counter >= price[1]
+  counter >= availableItems[1].price
     ? (shopButtonB.disabled = false)
     : (shopButtonB.disabled = true);
-  counter >= price[2]
+  counter >= availableItems[2].price
     ? (shopButtonC.disabled = false)
     : (shopButtonC.disabled = true);
 }
 
 // Step 7
-let rate = 0;
-const purchase = [0, 0, 0]; // How many times the player got A, B, C
-const price = [10, 100, 1000]; // Current prices of A, B, C
-
+let rateTotal = 0;
 // Takes args since the counter and rate need to be changed no matter what item is clicked
-function shop(itemType: number, itemRate: number, itemCost: number) {
-  if (counter >= itemCost) {
+function shop(itemType: number) {
+  if (counter >= availableItems[itemType - 1].price) {
     // If there are enough units, make the upgrades
-    counter -= itemCost;
-    rate += itemRate;
-    purchase[itemType - 1] += 1;
-    price[itemType - 1] *= 1.15; // Increase price by a factor of 1.15
+    counter -= availableItems[itemType - 1].price;
+    rateTotal += availableItems[itemType - 1].rate;
+    availableItems[itemType - 1].purchased += 1;
+    availableItems[itemType - 1].price *= 1.15; // Increase price by a factor of 1.15
     // Update text
-    growthRate.innerHTML = "Growth Rate: " + rate.toFixed(2) + " 🕺/sec";
-    itemA.innerHTML =
-      purchase[0] + " 🪗🦖" + " (price: " + price[0].toFixed(2) + ")";
-    itemB.innerHTML =
-      purchase[1] + " 📸🦐" + " (price: " + price[1].toFixed(2) + ")";
-    itemC.innerHTML =
-      purchase[2] + " 🎺🐛" + " (price: " + price[2].toFixed(2) + ")";
+    updateText();
     // Use the updated rate every second
-    setInterval(() => increaseCounter(rate), 1000);
+    setInterval(() => increaseCounter(rateTotal), 1000);
   }
 }
 
@@ -61,25 +91,22 @@ const shopButtonB = document.createElement("button");
 const shopButtonC = document.createElement("button");
 
 header.innerHTML = gameName;
-growthRate.innerHTML = "Rate: 0 🕺/sec";
-itemA.innerHTML = "0 🪗🦖 (price: 10)";
-itemB.innerHTML = "0 📸🦐 (price: 100)";
-itemC.innerHTML = "0 🎺🐛 (price: 1000)";
+updateText();
 
 counterText.innerHTML = `0 🕺`;
 
 button.innerHTML = "🕺";
 button.addEventListener("click", () => increaseCounter(1), false);
 
-shopButtonA.innerHTML = "More instruments 🪗🦖";
+shopButtonA.innerHTML = "More instruments " + availableItems[0].name;
 shopButtonA.disabled = true;
-shopButtonA.addEventListener("click", () => shop(1, 0.1, price[0]), false);
-shopButtonB.innerHTML = "Better production 📸🦐";
+shopButtonA.addEventListener("click", () => shop(1), false);
+shopButtonB.innerHTML = "Better production " + availableItems[1].name;
 shopButtonB.disabled = true;
-shopButtonB.addEventListener("click", () => shop(2, 2, price[1]), false);
-shopButtonC.innerHTML = "Live music 🎺🐛";
+shopButtonB.addEventListener("click", () => shop(2), false);
+shopButtonC.innerHTML = "Live music " + availableItems[2].name;
 shopButtonC.disabled = true;
-shopButtonC.addEventListener("click", () => shop(3, 50, price[2]), false);
+shopButtonC.addEventListener("click", () => shop(3), false);
 
 app.append(header);
 app.append(growthRate);
