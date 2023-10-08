@@ -11,58 +11,69 @@ function increaseCounter(change: number) {
   counter += change;
   counterText.innerHTML = `${Math.round(counter)} Whales`;
   // Disables/enables the button based on the units collected
-  if (counter >= 10) {
-    shopButton.disabled = false;
-  } else {
-    shopButton.disabled = true;
-  }
+  counter >= 10 ? (shopButtonA.disabled = false) : (shopButtonA.disabled = true);
+  counter >= 100 ? (shopButtonB.disabled = false) : (shopButtonB.disabled = true);
+  counter >= 1000 ? (shopButtonC.disabled = false) : (shopButtonC.disabled = true);
 }
 
-// Step 5
-// numPurchased will be equal to the growth rate that would be used for the Continuous Growth
-// More times the item is purchased, the faster the growth rate would be
-let numPurchased = 0;
-function shop() {
-  counter -= 10; // Decrease the units by 10
-  numPurchased += 1;
-  lastFrame = performance.now(); // Starts the animation
-  requestAnimationFrame(() => automate(performance.now()));
+// Step 6
+let rate = 0;
+const purchase = [0, 0, 0]; // A, B, C
+// Takes args since the counter and rate need to be changed no matter what item is clicked
+function shop(itemType: number, itemRate: number, itemCost: number) {
+    if (counter >= itemCost) {
+        counter -= itemCost;
+        rate += itemRate;
+        purchase[itemType - 1] += 1;
+        growthRate.innerHTML = "Growth Rate: " + rate.toFixed(2) + " whales/sec";
+        itemA.innerHTML = "Item A: " + purchase[0].toFixed(2);
+        itemB.innerHTML = "Item B: " + purchase[1].toFixed(2);
+        itemC.innerHTML = "Item C: " + purchase[2].toFixed(2);
+    }
+    setInterval(() => increaseCounter(rate), 1000);
 }
 
 const header = document.createElement("h1");
+const growthRate = document.createElement("div");
+const itemA = document.createElement("div");
+const itemB = document.createElement("div");
+const itemC = document.createElement("div");
+
 const button = document.createElement("button");
 const counterText = document.createElement("div");
-const shopButton = document.createElement("button");
+const shopButtonA = document.createElement("button");
+const shopButtonB = document.createElement("button");
+const shopButtonC = document.createElement("button");
 
 header.innerHTML = gameName;
+growthRate.innerHTML = "Rate: 0 whales/sec";
+itemA.innerHTML = "Item A: 0";
+itemB.innerHTML = "Item B: 0";
+itemC.innerHTML = "Item C: 0";
+
 counterText.innerHTML = `0 Whales`;
 
 button.innerHTML = "🐳";
 button.addEventListener("click", () => increaseCounter(1), false);
 
-shopButton.innerHTML = "Shop";
-shopButton.disabled = true; // At the beginning, disbale the shop button
-shopButton.addEventListener("click", shop, false);
-
-// Step 4: Continuous Growth
-// Read through this thread to understand the algorithm / how to approach it.
-// https://stackoverflow.com/questions/8279729/calculate-fps-in-canvas-using-requestanimationframe
-let lastFrame: number = 0;
-function automate(currentFrame: number) {
-  // Calculate how much time changed per frame
-  const elapsed: number = currentFrame - lastFrame;
-  lastFrame = currentFrame;
-  // let fps = 1000 / elapsed; // calculate frame per second
-  increaseCounter(numPurchased / (1000 / elapsed)); // incrase counter with the fractional amount  -> 1 / (second / frame)
-  // The function would be called every frame with the current time
-  requestAnimationFrame(() => automate(performance.now()));
-}
-// Call the automate function with the current time
-requestAnimationFrame(() => automate(performance.now()));
-// Step 3: Automatic Clicking
-// setInterval(() => increaseCounter(1), 1000);
+shopButtonA.innerHTML = "A";
+shopButtonA.disabled = true; 
+shopButtonA.addEventListener("click", () => shop(1, 0.1, 10), false);
+shopButtonB.innerHTML = "B";
+shopButtonB.disabled = true; 
+shopButtonB.addEventListener("click", () => shop(2, 2, 100), false);
+shopButtonC.innerHTML = "C";
+shopButtonC.disabled = true;
+shopButtonC.addEventListener("click", () => shop(3, 50, 1000), false);
 
 app.append(header);
+app.append(growthRate);
+app.append(itemA);
+app.append(itemB);
+app.append(itemC);
+
 app.append(button);
-app.append(shopButton);
+app.append(shopButtonA);
+app.append(shopButtonB);
+app.append(shopButtonC);
 app.append(counterText);
