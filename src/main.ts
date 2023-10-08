@@ -20,6 +20,7 @@ header.innerHTML = gameName;
 button.innerHTML = "🐳";
 counterText.innerHTML = `0 Whales`;
 button.addEventListener("click", increaseCounter, false);
+setInterval(increaseCounter, 1000);
 
 app.append(header);
 app.append(button);
