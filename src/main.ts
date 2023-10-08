@@ -28,14 +28,17 @@ const purchase = [0, 0, 0]; // A, B, C
 // Takes args since the counter and rate need to be changed no matter what item is clicked
 function shop(itemType: number, itemRate: number, itemCost: number) {
   if (counter >= itemCost) {
+    // If there are enough units, make the upgrades
     counter -= itemCost;
     rate += itemRate;
     purchase[itemType - 1] += 1;
+    // Update text
     growthRate.innerHTML = "Growth Rate: " + rate.toFixed(2) + " whales/sec";
     itemA.innerHTML = "Item A: " + purchase[0].toFixed(2);
     itemB.innerHTML = "Item B: " + purchase[1].toFixed(2);
     itemC.innerHTML = "Item C: " + purchase[2].toFixed(2);
   }
+  // Use the updated rate every second
   setInterval(() => increaseCounter(rate), 1000);
 }
 
