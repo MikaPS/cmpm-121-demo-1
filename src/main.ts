@@ -2,14 +2,14 @@ import "./style.css";
 
 const app: HTMLDivElement = document.querySelector("#app")!;
 
-const gameName = "Whale game";
+const gameName = "Pet Band🤙";
 
 document.title = gameName;
 
 let counter: number = 0;
 function increaseCounter(change: number) {
   counter += change;
-  counterText.innerHTML = `${Math.round(counter)} Whales`;
+  counterText.innerHTML = `${Math.round(counter)} 🕺`;
   // Disables/enables the button based on the units collected
   counter >= price[0]
     ? (shopButtonA.disabled = false)
@@ -36,25 +36,13 @@ function shop(itemType: number, itemRate: number, itemCost: number) {
     purchase[itemType - 1] += 1;
     price[itemType - 1] *= 1.15; // Increase price by a factor of 1.15
     // Update text
-    growthRate.innerHTML = "Growth Rate: " + rate.toFixed(2) + " whales/sec";
+    growthRate.innerHTML = "Growth Rate: " + rate.toFixed(2) + " 🕺/sec";
     itemA.innerHTML =
-      "Item A: " +
-      purchase[0].toFixed(2) +
-      " (price: " +
-      price[0].toFixed(2) +
-      ")";
+      purchase[0] + " 🪗🦖" + " (price: " + price[0].toFixed(2) + ")";
     itemB.innerHTML =
-      "Item B: " +
-      purchase[1].toFixed(2) +
-      " (price: " +
-      price[1].toFixed(2) +
-      ")";
+      purchase[1] + " 📸🦐" + " (price: " + price[1].toFixed(2) + ")";
     itemC.innerHTML =
-      "Item C: " +
-      purchase[2].toFixed(2) +
-      " (price: " +
-      price[2].toFixed(2) +
-      ")";
+      purchase[2] + " 🎺🐛" + " (price: " + price[2].toFixed(2) + ")";
     // Use the updated rate every second
     setInterval(() => increaseCounter(rate), 1000);
   }
@@ -73,23 +61,23 @@ const shopButtonB = document.createElement("button");
 const shopButtonC = document.createElement("button");
 
 header.innerHTML = gameName;
-growthRate.innerHTML = "Rate: 0 whales/sec";
-itemA.innerHTML = "Item A: 0 (price: 10)";
-itemB.innerHTML = "Item B: 0 (price: 100)";
-itemC.innerHTML = "Item C: 0 (price: 1000)";
+growthRate.innerHTML = "Rate: 0 🕺/sec";
+itemA.innerHTML = "0 🪗🦖 (price: 10)";
+itemB.innerHTML = "0 📸🦐 (price: 100)";
+itemC.innerHTML = "0 🎺🐛 (price: 1000)";
 
-counterText.innerHTML = `0 Whales`;
+counterText.innerHTML = `0 🕺`;
 
-button.innerHTML = "🐳";
+button.innerHTML = "🕺";
 button.addEventListener("click", () => increaseCounter(1), false);
 
-shopButtonA.innerHTML = "A";
+shopButtonA.innerHTML = "More instruments 🪗🦖";
 shopButtonA.disabled = true;
 shopButtonA.addEventListener("click", () => shop(1, 0.1, price[0]), false);
-shopButtonB.innerHTML = "B";
+shopButtonB.innerHTML = "Better production 📸🦐";
 shopButtonB.disabled = true;
 shopButtonB.addEventListener("click", () => shop(2, 2, price[1]), false);
-shopButtonC.innerHTML = "C";
+shopButtonC.innerHTML = "Live music 🎺🐛";
 shopButtonC.disabled = true;
 shopButtonC.addEventListener("click", () => shop(3, 50, price[2]), false);
 
