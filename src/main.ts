@@ -57,16 +57,17 @@ const availableItems: Item[] = [
 
 function updateText() {
   growthRate.innerHTML = "Growth Rate: " + rateTotal.toFixed(2) + " 🕺/sec";
-  itemA.innerHTML =
-    availableItems[0].price.toFixed(2) + " | " + availableItems[0].purchased;
-  itemB.innerHTML =
-    availableItems[1].price.toFixed(2) + " | " + availableItems[1].purchased;
-  itemC.innerHTML =
-    availableItems[2].price.toFixed(2) + " | " + availableItems[2].purchased;
-  itemD.innerHTML =
-    availableItems[3].price.toFixed(2) + " | " + availableItems[3].purchased;
-  itemE.innerHTML =
-    availableItems[4].price.toFixed(2) + " | " + availableItems[4].purchased;
+  itemA.innerHTML = availableItems[0].price.toFixed(2);
+  itemB.innerHTML = availableItems[1].price.toFixed(2);
+  itemC.innerHTML = availableItems[2].price.toFixed(2);
+  itemD.innerHTML = availableItems[3].price.toFixed(2);
+  itemE.innerHTML = availableItems[4].price.toFixed(2);
+
+  priceA.innerHTML = "x" + availableItems[0].purchased;
+  priceB.innerHTML = "x" + availableItems[1].purchased;
+  priceC.innerHTML = "x" + availableItems[2].purchased;
+  priceD.innerHTML = "x" + availableItems[3].purchased;
+  priceE.innerHTML = "x" + availableItems[4].purchased;
 
   // priceTable.innerHTML =
   //   availableItems[0].price.toFixed(2) +
@@ -138,6 +139,17 @@ const row3 = document.createElement("div");
 const row4 = document.createElement("div");
 const row5 = document.createElement("div");
 
+const priceA = document.createElement("div");
+priceA.style.marginRight = "auto";
+const priceB = document.createElement("div");
+priceB.style.marginRight = "auto";
+const priceC = document.createElement("div");
+priceC.style.marginRight = "auto";
+const priceD = document.createElement("div");
+priceD.style.marginRight = "auto";
+const priceE = document.createElement("div");
+priceE.style.marginRight = "auto";
+
 const itemA = document.createElement("div");
 const itemB = document.createElement("div");
 const itemC = document.createElement("div");
@@ -145,40 +157,57 @@ const itemD = document.createElement("div");
 const itemE = document.createElement("div");
 
 const button = document.createElement("button");
-const counterText = document.createElement("div");
+const counterText = document.createElement("h3");
 
 const shopButtonA = document.createElement("button");
-shopButtonA.style.marginRight = "auto";
+shopButtonA.style.justifyContent = "flex-start";
 const shopButtonB = document.createElement("button");
-shopButtonB.style.marginRight = "auto";
+shopButtonB.style.justifyContent = "flex-start";
 const shopButtonC = document.createElement("button");
-shopButtonC.style.marginRight = "auto";
+shopButtonC.style.justifyContent = "flex-start";
 const shopButtonD = document.createElement("button");
-shopButtonD.style.marginRight = "auto";
+shopButtonD.style.justifyContent = "flex-start";
 const shopButtonE = document.createElement("button");
-shopButtonE.style.marginRight = "auto";
+shopButtonE.style.justifyContent = "flex-start";
 
 row1.appendChild(shopButtonA);
+row1.appendChild(priceA);
 row1.appendChild(itemA);
 row1.style.display = "flex";
 row2.appendChild(shopButtonB);
+row2.appendChild(priceB);
 row2.appendChild(itemB);
 row2.style.display = "flex";
 row3.appendChild(shopButtonC);
+row3.appendChild(priceC);
 row3.appendChild(itemC);
 row3.style.display = "flex";
 row4.appendChild(shopButtonD);
+row4.appendChild(priceD);
 row4.appendChild(itemD);
 row4.style.display = "flex";
 row5.appendChild(shopButtonE);
+row5.appendChild(priceE);
 row5.appendChild(itemE);
 row5.style.display = "flex";
 
 // const priceTable = document.createElement("div");
 // const purchasedTable = document.createElement("div");
-
+const instructions = document.createElement("div");
+instructions.innerHTML =
+  "<div>" +
+  "The band needs your help!" +
+  "<div>" +
+  "Press the dancing man button to start collecting dancers!" +
+  "<div>" +
+  "After Collecting enough dancers, you can get more members for the band." +
+  "<div>" +
+  "Click the emoji buttons on the left to buy the upgrades, the price is on the right side." +
+  "<div>" +
+  "The x next to the emoji is how many you already purchased" +
+  "<div>";
 const desc = document.createElement("div");
-desc.style.fontStyle = "italic";
+instructions.style.fontStyle = "italic";
 
 header.innerHTML = gameName;
 // purchasedTable.style.wordSpacing = "95px";
@@ -234,3 +263,4 @@ app.append(row5);
 // app.append(shopButtonE);
 // app.append(priceTable);
 app.append(desc);
+app.append(instructions);
