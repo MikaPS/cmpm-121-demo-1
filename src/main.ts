@@ -119,6 +119,7 @@ function increaseCounter(change: number) {
 }
 
 // Step 7
+let interval: number;
 let rateTotal = 0;
 // Takes args since the counter and rate need to be changed no matter what item is clicked
 function shop(itemType: number) {
@@ -132,7 +133,10 @@ function shop(itemType: number) {
     updateText();
     desc.innerHTML = availableItems[itemType - 1].description;
     // Use the updated rate every second
-    setInterval(() => increaseCounter(rateTotal), 1000);
+    if (interval != undefined) {
+      clearInterval(interval);
+    }
+    interval = setInterval(() => increaseCounter(rateTotal), 1000);
   }
 }
 
