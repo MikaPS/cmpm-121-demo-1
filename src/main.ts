@@ -57,37 +57,37 @@ const availableItems: Item[] = [
 
 function updateText() {
   growthRate.innerHTML = "Growth Rate: " + rateTotal.toFixed(2) + " 🕺/sec";
-  // itemA.innerHTML =
-  //   availableItems[0].name;
-  // itemB.innerHTML =
-  //   availableItems[1].name;
-  // itemC.innerHTML =
-  //   availableItems[2].name;
-  // itemD.innerHTML =
-  //   availableItems[3].name;
-  // itemE.innerHTML =
-  //   availableItems[4].name;
+  itemA.innerHTML =
+    availableItems[0].price.toFixed(2) + " | " + availableItems[0].purchased;
+  itemB.innerHTML =
+    availableItems[1].price.toFixed(2) + " | " + availableItems[1].purchased;
+  itemC.innerHTML =
+    availableItems[2].price.toFixed(2) + " | " + availableItems[2].purchased;
+  itemD.innerHTML =
+    availableItems[3].price.toFixed(2) + " | " + availableItems[3].purchased;
+  itemE.innerHTML =
+    availableItems[4].price.toFixed(2) + " | " + availableItems[4].purchased;
 
-  priceTable.innerHTML =
-    availableItems[0].price.toFixed(2) +
-    " " +
-    availableItems[1].price.toFixed(2) +
-    " " +
-    availableItems[2].price.toFixed(2) +
-    " " +
-    availableItems[3].price.toFixed(2) +
-    " " +
-    availableItems[4].price.toFixed(2);
-  purchasedTable.innerHTML =
-    availableItems[0].purchased +
-    " " +
-    availableItems[1].purchased +
-    " " +
-    availableItems[2].purchased +
-    " " +
-    availableItems[3].purchased +
-    " " +
-    availableItems[4].purchased;
+  // priceTable.innerHTML =
+  //   availableItems[0].price.toFixed(2) +
+  //   " " +
+  //   availableItems[1].price.toFixed(2) +
+  //   " " +
+  //   availableItems[2].price.toFixed(2) +
+  //   " " +
+  //   availableItems[3].price.toFixed(2) +
+  //   " " +
+  //   availableItems[4].price.toFixed(2);
+  // purchasedTable.innerHTML =
+  //   availableItems[0].purchased +
+  //   " " +
+  //   availableItems[1].purchased +
+  //   " " +
+  //   availableItems[2].purchased +
+  //   " " +
+  //   availableItems[3].purchased +
+  //   " " +
+  //   availableItems[4].purchased;
 }
 
 let counter: number = 0;
@@ -132,39 +132,57 @@ function shop(itemType: number) {
 
 const header = document.createElement("h1");
 const growthRate = document.createElement("div");
-// const itemA = document.createElement("div");
-// const itemB = document.createElement("div");
-// const itemC = document.createElement("div");
-// const itemD = document.createElement("div");
-// const itemE = document.createElement("div");
+const row1 = document.createElement("div");
+const row2 = document.createElement("div");
+const row3 = document.createElement("div");
+const row4 = document.createElement("div");
+const row5 = document.createElement("div");
+
+const itemA = document.createElement("div");
+const itemB = document.createElement("div");
+const itemC = document.createElement("div");
+const itemD = document.createElement("div");
+const itemE = document.createElement("div");
 
 const button = document.createElement("button");
 const counterText = document.createElement("div");
-const buttonTable = document.createElement("div");
+
 const shopButtonA = document.createElement("button");
-shopButtonA.style.marginRight = "15px";
+shopButtonA.style.marginRight = "auto";
 const shopButtonB = document.createElement("button");
-shopButtonB.style.marginRight = "15px";
+shopButtonB.style.marginRight = "auto";
 const shopButtonC = document.createElement("button");
-shopButtonC.style.marginRight = "15px";
+shopButtonC.style.marginRight = "auto";
 const shopButtonD = document.createElement("button");
-shopButtonD.style.marginRight = "15px";
+shopButtonD.style.marginRight = "auto";
 const shopButtonE = document.createElement("button");
-shopButtonE.style.marginRight = "15px";
-buttonTable.appendChild(shopButtonA);
-buttonTable.appendChild(shopButtonB);
-buttonTable.appendChild(shopButtonC);
-buttonTable.appendChild(shopButtonD);
-buttonTable.appendChild(shopButtonE);
-const priceTable = document.createElement("div");
-const purchasedTable = document.createElement("div");
+shopButtonE.style.marginRight = "auto";
+
+row1.appendChild(shopButtonA);
+row1.appendChild(itemA);
+row1.style.display = "flex";
+row2.appendChild(shopButtonB);
+row2.appendChild(itemB);
+row2.style.display = "flex";
+row3.appendChild(shopButtonC);
+row3.appendChild(itemC);
+row3.style.display = "flex";
+row4.appendChild(shopButtonD);
+row4.appendChild(itemD);
+row4.style.display = "flex";
+row5.appendChild(shopButtonE);
+row5.appendChild(itemE);
+row5.style.display = "flex";
+
+// const priceTable = document.createElement("div");
+// const purchasedTable = document.createElement("div");
 
 const desc = document.createElement("div");
 desc.style.fontStyle = "italic";
 
 header.innerHTML = gameName;
-purchasedTable.style.wordSpacing = "95px";
-priceTable.style.wordSpacing = "45px";
+// purchasedTable.style.wordSpacing = "95px";
+// priceTable.style.wordSpacing = "45px";
 updateText();
 
 counterText.innerHTML = `0 🕺`;
@@ -201,12 +219,18 @@ app.append(growthRate);
 // app.append(itemE);
 
 app.append(button);
-app.append(purchasedTable);
-app.append(buttonTable);
+app.append(row1);
+app.append(row2);
+app.append(row3);
+app.append(row4);
+app.append(row5);
+
+// app.append(purchasedTable);
+// app.append(buttonTable);
 // app.append(shopButtonA);
 // app.append(shopButtonB);
 // app.append(shopButtonC);
 // app.append(shopButtonD);
 // app.append(shopButtonE);
-app.append(priceTable);
+// app.append(priceTable);
 app.append(desc);
