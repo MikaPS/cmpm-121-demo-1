@@ -60,7 +60,8 @@ const availableItems: Item[] = [
 ];
 
 function updateText() {
-  growthRate.innerHTML = "Growth Rate: " + rateTotal.toFixed(2) + " 🕺/sec";
+  growthRate.innerHTML =
+    "Wow! You are getting " + rateTotal.toFixed(2) + "🕺per sec!";
   itemA.innerHTML = availableItems[0].price.toFixed(2);
   itemB.innerHTML = availableItems[1].price.toFixed(2);
   itemC.innerHTML = availableItems[2].price.toFixed(2);
