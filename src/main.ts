@@ -36,7 +36,9 @@ const availableItems: Item[] = [
     rate: 2,
     purchased: 0,
     description:
-      "Why didn't the shrimp want to join the band? Because it didn't want to be a shell-ist!",
+      "Why didn't the shrimp want to join the band?" +
+      "<div>" +
+      "Because it didn't want to be a shell-ist!",
   },
   {
     name: "🎺🐛",
@@ -44,14 +46,16 @@ const availableItems: Item[] = [
     rate: 20,
     purchased: 0,
     description:
-      "Why don't worms form rock bands? They're more into underground music scenes",
+      "Why don't worms form rock bands?" +
+      "<div>" +
+      "They're more into underground music scenes",
   },
   {
     name: "🪕🦩",
     price: 5000,
     rate: 50,
     purchased: 0,
-    description: "What do flamingos do for fun? Play fla-bango.",
+    description: "What do flamingos do for fun?" + "<div>" + "Play fla-bango.",
   },
 ];
 
@@ -192,29 +196,47 @@ row5.style.display = "flex";
 
 // const priceTable = document.createElement("div");
 // const purchasedTable = document.createElement("div");
+const instructionsBold = document.createElement("div");
+instructionsBold.style.fontWeight = "bold";
+let isInstructionsOn = true;
 const instructions = document.createElement("div");
-instructions.innerHTML =
-  "<div>" +
-  "The band needs your help!" +
-  "<div>" +
-  "Press the dancing man button to start collecting dancers!" +
-  "<div>" +
-  "After Collecting enough dancers, you can get more members for the band." +
-  "<div>" +
-  "Click the emoji buttons on the left to buy the upgrades, the price is on the right side." +
-  "<div>" +
-  "The x next to the emoji is how many you already purchased" +
-  "<div>";
-const desc = document.createElement("div");
 instructions.style.fontStyle = "italic";
 
+const instructionsButton = document.createElement("button");
+instructionsButton.innerHTML = "Close/Open Instructions";
+instructionsButton.style.fontSize = "12px";
+instructionsButton.addEventListener("click", () => instructionsChange(), false);
+function instructionsChange() {
+  if (isInstructionsOn == true) {
+    instructionsBold.innerHTML = "Instructions: ";
+    instructions.innerHTML =
+      "<div>" +
+      "The band needs your help!" +
+      "<div>" +
+      "Press the dancing man button to start collecting dancers!" +
+      "<div>" +
+      "After Collecting enough dancers, you can get more members for the band." +
+      "<div>" +
+      "Click the emoji buttons on the left to buy the upgrades, the price is on the right side." +
+      "<div>" +
+      "The x next to the emoji is how many you already purchased" +
+      "<div>";
+    isInstructionsOn = false;
+  } else {
+    instructionsBold.innerHTML = "";
+    instructions.innerHTML = "";
+    isInstructionsOn = true;
+  }
+}
+instructionsChange();
+const desc = document.createElement("div");
+desc.style.fontStyle = "italic";
 header.innerHTML = gameName;
 // purchasedTable.style.wordSpacing = "95px";
 // priceTable.style.wordSpacing = "45px";
 updateText();
 
 counterText.innerHTML = `0 🕺`;
-
 button.innerHTML = "🕺";
 // button.style.cssText = "width: 100px; height: 50px;";
 button.style.fontSize = "24px";
@@ -237,6 +259,10 @@ shopButtonE.disabled = true;
 shopButtonE.addEventListener("click", () => shop(5), false);
 
 app.append(header);
+app.append(instructionsBold);
+app.append(instructions);
+app.append(instructionsButton);
+
 app.append(counterText);
 
 app.append(growthRate);
@@ -262,4 +288,3 @@ app.append(row5);
 // app.append(shopButtonE);
 // app.append(priceTable);
 app.append(desc);
-app.append(instructions);
