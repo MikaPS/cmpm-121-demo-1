@@ -12,43 +12,88 @@ interface Item {
   price: number;
   rate: number;
   purchased: number;
+  description: string;
 }
 
 const availableItems: Item[] = [
-  { name: "🪗🦖", price: 10, rate: 0.1, purchased: 0 },
-  { name: "📸🦐", price: 100, rate: 2, purchased: 0 },
-  { name: "🎺🐛", price: 1000, rate: 50, purchased: 0 },
+  {
+    name: "🪗🦖",
+    price: 10,
+    rate: 0.1,
+    purchased: 0,
+    description: "The hands are just long enough to reach the instrument",
+  },
+  {
+    name: "🎤🐟",
+    price: 50,
+    rate: 1,
+    purchased: 0,
+    description: "Most of their songs consist of just blops",
+  },
+  {
+    name: "🎻🦐",
+    price: 200,
+    rate: 2,
+    purchased: 0,
+    description:
+      "Why didn't the shrimp want to join the band? Because it didn't want to be a shell-ist!",
+  },
+  {
+    name: "🎺🐛",
+    price: 1000,
+    rate: 20,
+    purchased: 0,
+    description:
+      "Why don't worms form rock bands? They're more into underground music scenes",
+  },
+  {
+    name: "🪕🦩",
+    price: 5000,
+    rate: 50,
+    purchased: 0,
+    description: "What do flamingos do for fun? Play fla-bango.",
+  },
 ];
 
 function updateText() {
   growthRate.innerHTML = "Growth Rate: " + rateTotal.toFixed(2) + " 🕺/sec";
-  itemA.innerHTML =
-    availableItems[0].purchased +
-    " " +
-    availableItems[0].name +
-    " (price: " +
+  // itemA.innerHTML =
+  //   availableItems[0].name;
+  // itemB.innerHTML =
+  //   availableItems[1].name;
+  // itemC.innerHTML =
+  //   availableItems[2].name;
+  // itemD.innerHTML =
+  //   availableItems[3].name;
+  // itemE.innerHTML =
+  //   availableItems[4].name;
+
+  priceTable.innerHTML =
     availableItems[0].price.toFixed(2) +
     " " +
-    ")";
-  itemB.innerHTML =
-    availableItems[1].purchased +
-    availableItems[1].name +
-    " (price: " +
     availableItems[1].price.toFixed(2) +
     " " +
-    ")";
-  itemC.innerHTML =
-    availableItems[2].purchased +
-    availableItems[2].name +
-    " (price: " +
     availableItems[2].price.toFixed(2) +
-    ")";
+    " " +
+    availableItems[3].price.toFixed(2) +
+    " " +
+    availableItems[4].price.toFixed(2);
+  purchasedTable.innerHTML =
+    availableItems[0].purchased +
+    " " +
+    availableItems[1].purchased +
+    " " +
+    availableItems[2].purchased +
+    " " +
+    availableItems[3].purchased +
+    " " +
+    availableItems[4].purchased;
 }
 
 let counter: number = 0;
 function increaseCounter(change: number) {
   counter += change;
-  counterText.innerHTML = `${Math.round(counter)} 🕺`;
+  counterText.innerHTML = `${counter.toFixed(2)} 🕺`;
   // Disables/enables the button based on the units collected
   counter >= availableItems[0].price
     ? (shopButtonA.disabled = false)
@@ -59,6 +104,12 @@ function increaseCounter(change: number) {
   counter >= availableItems[2].price
     ? (shopButtonC.disabled = false)
     : (shopButtonC.disabled = true);
+  counter >= availableItems[3].price
+    ? (shopButtonD.disabled = false)
+    : (shopButtonD.disabled = true);
+  counter >= availableItems[4].price
+    ? (shopButtonE.disabled = false)
+    : (shopButtonE.disabled = true);
 }
 
 // Step 7
@@ -73,6 +124,7 @@ function shop(itemType: number) {
     availableItems[itemType - 1].price *= 1.15; // Increase price by a factor of 1.15
     // Update text
     updateText();
+    desc.innerHTML = availableItems[itemType - 1].description;
     // Use the updated rate every second
     setInterval(() => increaseCounter(rateTotal), 1000);
   }
@@ -80,42 +132,81 @@ function shop(itemType: number) {
 
 const header = document.createElement("h1");
 const growthRate = document.createElement("div");
-const itemA = document.createElement("div");
-const itemB = document.createElement("div");
-const itemC = document.createElement("div");
+// const itemA = document.createElement("div");
+// const itemB = document.createElement("div");
+// const itemC = document.createElement("div");
+// const itemD = document.createElement("div");
+// const itemE = document.createElement("div");
 
 const button = document.createElement("button");
 const counterText = document.createElement("div");
+const buttonTable = document.createElement("div");
 const shopButtonA = document.createElement("button");
+shopButtonA.style.marginRight = "15px";
 const shopButtonB = document.createElement("button");
+shopButtonB.style.marginRight = "15px";
 const shopButtonC = document.createElement("button");
+shopButtonC.style.marginRight = "15px";
+const shopButtonD = document.createElement("button");
+shopButtonD.style.marginRight = "15px";
+const shopButtonE = document.createElement("button");
+shopButtonE.style.marginRight = "15px";
+buttonTable.appendChild(shopButtonA);
+buttonTable.appendChild(shopButtonB);
+buttonTable.appendChild(shopButtonC);
+buttonTable.appendChild(shopButtonD);
+buttonTable.appendChild(shopButtonE);
+const priceTable = document.createElement("div");
+const purchasedTable = document.createElement("div");
+
+const desc = document.createElement("div");
+desc.style.fontStyle = "italic";
 
 header.innerHTML = gameName;
+purchasedTable.style.wordSpacing = "95px";
+priceTable.style.wordSpacing = "45px";
 updateText();
 
 counterText.innerHTML = `0 🕺`;
 
 button.innerHTML = "🕺";
+// button.style.cssText = "width: 100px; height: 50px;";
+button.style.fontSize = "24px";
 button.addEventListener("click", () => increaseCounter(1), false);
 
-shopButtonA.innerHTML = "More instruments " + availableItems[0].name;
+shopButtonA.innerHTML = availableItems[0].name;
 shopButtonA.disabled = true;
 shopButtonA.addEventListener("click", () => shop(1), false);
-shopButtonB.innerHTML = "Better production " + availableItems[1].name;
+shopButtonB.innerHTML = availableItems[1].name;
 shopButtonB.disabled = true;
 shopButtonB.addEventListener("click", () => shop(2), false);
-shopButtonC.innerHTML = "Live music " + availableItems[2].name;
+shopButtonC.innerHTML = availableItems[2].name;
 shopButtonC.disabled = true;
 shopButtonC.addEventListener("click", () => shop(3), false);
+shopButtonD.innerHTML = availableItems[3].name;
+shopButtonD.disabled = true;
+shopButtonD.addEventListener("click", () => shop(4), false);
+shopButtonE.innerHTML = availableItems[4].name;
+shopButtonE.disabled = true;
+shopButtonE.addEventListener("click", () => shop(5), false);
 
 app.append(header);
+app.append(counterText);
+
 app.append(growthRate);
-app.append(itemA);
-app.append(itemB);
-app.append(itemC);
+// app.append(itemA);
+// app.append(itemB);
+// app.append(itemC);
+// app.append(itemD);
+// app.append(itemE);
 
 app.append(button);
-app.append(shopButtonA);
-app.append(shopButtonB);
-app.append(shopButtonC);
-app.append(counterText);
+app.append(purchasedTable);
+app.append(buttonTable);
+// app.append(shopButtonA);
+// app.append(shopButtonB);
+// app.append(shopButtonC);
+// app.append(shopButtonD);
+// app.append(shopButtonE);
+app.append(priceTable);
+app.append(desc);
