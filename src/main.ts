@@ -158,7 +158,6 @@ const itemE = document.createElement("div");
 
 const button = document.createElement("button");
 const counterText = document.createElement("h3");
-
 const shopButtonA = document.createElement("button");
 shopButtonA.style.justifyContent = "flex-start";
 const shopButtonB = document.createElement("button");
