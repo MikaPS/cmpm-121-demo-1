@@ -62,38 +62,17 @@ const availableItems: Item[] = [
 function updateText() {
   growthRate.innerHTML =
     "Wow! You are getting " + rateTotal.toFixed(2) + "🕺per sec!";
-  itemA.innerHTML = availableItems[0].price.toFixed(2);
-  itemB.innerHTML = availableItems[1].price.toFixed(2);
-  itemC.innerHTML = availableItems[2].price.toFixed(2);
-  itemD.innerHTML = availableItems[3].price.toFixed(2);
-  itemE.innerHTML = availableItems[4].price.toFixed(2);
+  itemA.innerHTML = availableItems[0].price.toFixed(2) + " (+0.1🕺/sec)";
+  itemB.innerHTML = availableItems[1].price.toFixed(2) + " (+1🕺/sec)";
+  itemC.innerHTML = availableItems[2].price.toFixed(2) + " (+2🕺/sec)";
+  itemD.innerHTML = availableItems[3].price.toFixed(2) + " (+20🕺/sec)";
+  itemE.innerHTML = availableItems[4].price.toFixed(2) + " (+50🕺/sec)";
 
   priceA.innerHTML = "x" + availableItems[0].purchased;
   priceB.innerHTML = "x" + availableItems[1].purchased;
   priceC.innerHTML = "x" + availableItems[2].purchased;
   priceD.innerHTML = "x" + availableItems[3].purchased;
   priceE.innerHTML = "x" + availableItems[4].purchased;
-
-  // priceTable.innerHTML =
-  //   availableItems[0].price.toFixed(2) +
-  //   " " +
-  //   availableItems[1].price.toFixed(2) +
-  //   " " +
-  //   availableItems[2].price.toFixed(2) +
-  //   " " +
-  //   availableItems[3].price.toFixed(2) +
-  //   " " +
-  //   availableItems[4].price.toFixed(2);
-  // purchasedTable.innerHTML =
-  //   availableItems[0].purchased +
-  //   " " +
-  //   availableItems[1].purchased +
-  //   " " +
-  //   availableItems[2].purchased +
-  //   " " +
-  //   availableItems[3].purchased +
-  //   " " +
-  //   availableItems[4].purchased;
 }
 
 let counter: number = 0;
@@ -131,6 +110,7 @@ function shop(itemType: number) {
     availableItems[itemType - 1].price *= 1.15; // Increase price by a factor of 1.15
     // Update text
     updateText();
+    // Update description based on the object you clicked on
     desc.innerHTML = availableItems[itemType - 1].description;
     // Use the updated rate every second
     if (interval != undefined) {
@@ -178,6 +158,7 @@ shopButtonD.style.justifyContent = "flex-start";
 const shopButtonE = document.createElement("button");
 shopButtonE.style.justifyContent = "flex-start";
 
+// Styling it so everything can fit in a line
 row1.appendChild(shopButtonA);
 row1.appendChild(priceA);
 row1.appendChild(itemA);
@@ -199,8 +180,7 @@ row5.appendChild(priceE);
 row5.appendChild(itemE);
 row5.style.display = "flex";
 
-// const priceTable = document.createElement("div");
-// const purchasedTable = document.createElement("div");
+// Instructions
 const instructionsBold = document.createElement("div");
 instructionsBold.style.fontWeight = "bold";
 let isInstructionsOn = true;
@@ -237,13 +217,10 @@ instructionsChange();
 const desc = document.createElement("div");
 desc.style.fontStyle = "italic";
 header.innerHTML = gameName;
-// purchasedTable.style.wordSpacing = "95px";
-// priceTable.style.wordSpacing = "45px";
 updateText();
 
 counterText.innerHTML = `0 🕺`;
 button.innerHTML = "🕺";
-// button.style.cssText = "width: 100px; height: 50px;";
 button.style.fontSize = "24px";
 button.addEventListener("click", () => increaseCounter(1), false);
 
@@ -271,11 +248,6 @@ app.append(instructionsButton);
 app.append(counterText);
 
 app.append(growthRate);
-// app.append(itemA);
-// app.append(itemB);
-// app.append(itemC);
-// app.append(itemD);
-// app.append(itemE);
 
 app.append(button);
 app.append(row1);
@@ -284,12 +256,15 @@ app.append(row3);
 app.append(row4);
 app.append(row5);
 
-// app.append(purchasedTable);
-// app.append(buttonTable);
-// app.append(shopButtonA);
-// app.append(shopButtonB);
-// app.append(shopButtonC);
-// app.append(shopButtonD);
-// app.append(shopButtonE);
-// app.append(priceTable);
 app.append(desc);
+
+/*
+Credits:
+- Using div as a new line:
+  - https://stackoverflow.com/questions/44743813/new-line-n-is-not-working-in-typescript 
+- Spacing:
+  - https://stackoverflow.com/questions/25177435/spacing-between-two-buttons-inside-a-div
+- Styling options:
+  - https://www.w3schools.com/jsref/prop_style_display.asp
+- A lot of MDN web docs
+*/
