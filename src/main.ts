@@ -26,14 +26,14 @@ const availableItems: Item[] = [
   {
     name: "🎤🐟",
     price: 50,
-    rate: 1,
+    rate: 2,
     purchased: 0,
     description: "Most of their songs consist of just blops",
   },
   {
     name: "🎻🦐",
     price: 200,
-    rate: 2,
+    rate: 5,
     purchased: 0,
     description:
       "Why didn't the shrimp want to join the band?" +
@@ -62,11 +62,31 @@ const availableItems: Item[] = [
 function updateText() {
   growthRate.innerHTML =
     "Wow! You are getting " + rateTotal.toFixed(2) + "🕺per sec!";
-  itemA.innerHTML = availableItems[0].price.toFixed(2) + " (+0.1🕺/sec)";
-  itemB.innerHTML = availableItems[1].price.toFixed(2) + " (+1🕺/sec)";
-  itemC.innerHTML = availableItems[2].price.toFixed(2) + " (+2🕺/sec)";
-  itemD.innerHTML = availableItems[3].price.toFixed(2) + " (+20🕺/sec)";
-  itemE.innerHTML = availableItems[4].price.toFixed(2) + " (+50🕺/sec)";
+  itemA.innerHTML =
+    availableItems[0].price.toFixed(2) +
+    " (+" +
+    availableItems[0].rate.toFixed(2) +
+    "🕺/sec)";
+  itemB.innerHTML =
+    availableItems[1].price.toFixed(2) +
+    " (+" +
+    availableItems[1].rate.toFixed(2) +
+    "🕺/sec)";
+  itemC.innerHTML =
+    availableItems[2].price.toFixed(2) +
+    " (+" +
+    availableItems[2].rate.toFixed(2) +
+    "🕺/sec)";
+  itemD.innerHTML =
+    availableItems[3].price.toFixed(2) +
+    " (+" +
+    availableItems[3].rate.toFixed(2) +
+    "🕺/sec)";
+  itemE.innerHTML =
+    availableItems[4].price.toFixed(2) +
+    " (+" +
+    availableItems[4].rate.toFixed(2) +
+    "🕺/sec)";
 
   priceA.innerHTML = "x" + availableItems[0].purchased;
   priceB.innerHTML = "x" + availableItems[1].purchased;
@@ -78,7 +98,7 @@ function updateText() {
 let counter: number = 0;
 function increaseCounter(change: number) {
   counter += change;
-  counterText.innerHTML = `${counter.toFixed(2)} 🕺`;
+  counterText.innerHTML = `${counter.toFixed(1)} 🕺`;
   // Disables/enables the button based on the units collected
   counter >= availableItems[0].price
     ? (shopButtonA.disabled = false)
@@ -98,7 +118,6 @@ function increaseCounter(change: number) {
 }
 
 // Step 7
-let interval: number;
 let rateTotal = 0;
 // Takes args since the counter and rate need to be changed no matter what item is clicked
 function shop(itemType: number) {
@@ -112,13 +131,21 @@ function shop(itemType: number) {
     updateText();
     // Update description based on the object you clicked on
     desc.innerHTML = availableItems[itemType - 1].description;
-    // Use the updated rate every second
-    if (interval != undefined) {
-      clearInterval(interval);
-    }
-    interval = setInterval(() => increaseCounter(rateTotal), 1000);
   }
 }
+
+let lastFrame: number = 0;
+function automate(currentFrame: number) {
+  // Calculate how much time changed per frame
+  const elapsed: number = currentFrame - lastFrame;
+  lastFrame = currentFrame;
+  // let fps = 1000 / elapsed; // calculate frame per second
+  increaseCounter(rateTotal / (1000 / elapsed)); // incrase counter with the fractional amount  -> 1 / (second / frame)
+  // The function would be called every frame with the current time
+  requestAnimationFrame(() => automate(performance.now()));
+}
+// Call the automate function with the current time
+requestAnimationFrame(() => automate(performance.now()));
 
 const header = document.createElement("h1");
 const growthRate = document.createElement("div");
