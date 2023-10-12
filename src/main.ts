@@ -13,6 +13,7 @@ interface Item {
   price: number;
   rate: number;
   purchased: number;
+  description: string;
 }
 
 const availableItems: Item[] = [
@@ -21,18 +22,41 @@ const availableItems: Item[] = [
     price: 10,
     rate: 0.1,
     purchased: 0,
+    description: "The hands are just long enough to reach the instrument",
   },
   {
     name: "🎤🐟",
-    price: 100,
-    rate: 2,
+    price: 50,
+    rate: 1,
     purchased: 0,
+    description: "Most of their songs consist of just blops",
   },
   {
     name: "🎻🦐",
+    price: 200,
+    rate: 5,
+    purchased: 0,
+    description:
+      "Why didn't the shrimp want to join the band?" +
+      "<div>" +
+      "Because it didn't want to be a shell-ist!",
+  },
+  {
+    name: "🎺🐛",
     price: 1000,
+    rate: 20,
+    purchased: 0,
+    description:
+      "Why don't worms form rock bands?" +
+      "<div>" +
+      "They're more into underground music scenes",
+  },
+  {
+    name: "🪕🦩",
+    price: 5000,
     rate: 50,
     purchased: 0,
+    description: "What do flamingos do for fun?" + "<div>" + "Play fla-bango.",
   },
 ];
 
@@ -71,6 +95,8 @@ function shop(itemType: number) {
     rateTotal += availableItems[itemType].rate;
     availableItems[itemType].price *= 1.15; // Increase price by a factor of 1.15
     availableItems[itemType].purchased += 1;
+    // Update description based on the object you clicked on
+    desc.innerHTML = availableItems[itemType].description;
     // Update text
     updateText();
   }
@@ -169,6 +195,10 @@ function instructionsChange() {
 }
 instructionsChange();
 
+// Description
+const desc = document.createElement("div");
+desc.style.fontStyle = "italic";
+
 app.append(header);
 app.append(instructionsBold);
 app.append(instructions);
@@ -180,4 +210,5 @@ app.append(button);
 rows.forEach((row) => {
   app.append(row);
 });
+app.append(desc);
 updateText();
