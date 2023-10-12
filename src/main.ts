@@ -62,37 +62,14 @@ const availableItems: Item[] = [
 function updateText() {
   growthRate.innerHTML =
     "Wow! You are getting " + rateTotal.toFixed(2) + "🕺per sec!";
-  itemA.innerHTML =
-    availableItems[0].price.toFixed(2) +
-    " (+" +
-    availableItems[0].rate.toFixed(2) +
-    "🕺/sec)";
-  itemB.innerHTML =
-    availableItems[1].price.toFixed(2) +
-    " (+" +
-    availableItems[1].rate.toFixed(2) +
-    "🕺/sec)";
-  itemC.innerHTML =
-    availableItems[2].price.toFixed(2) +
-    " (+" +
-    availableItems[2].rate.toFixed(2) +
-    "🕺/sec)";
-  itemD.innerHTML =
-    availableItems[3].price.toFixed(2) +
-    " (+" +
-    availableItems[3].rate.toFixed(2) +
-    "🕺/sec)";
-  itemE.innerHTML =
-    availableItems[4].price.toFixed(2) +
-    " (+" +
-    availableItems[4].rate.toFixed(2) +
-    "🕺/sec)";
+  availableItems.forEach((item, i) => {
+    items[i].innerHTML =
+      item.price.toFixed(2) + " (+" + item.rate.toFixed(2) + "🕺/sec)";
+  });
 
-  priceA.innerHTML = "x" + availableItems[0].purchased;
-  priceB.innerHTML = "x" + availableItems[1].purchased;
-  priceC.innerHTML = "x" + availableItems[2].purchased;
-  priceD.innerHTML = "x" + availableItems[3].purchased;
-  priceE.innerHTML = "x" + availableItems[4].purchased;
+  prices.forEach((price, i) => {
+    price.innerHTML = "x" + availableItems[i].purchased;
+  });
 }
 
 let counter: number = 0;
@@ -100,21 +77,9 @@ function increaseCounter(change: number) {
   counter += change;
   counterText.innerHTML = `${counter.toFixed(1)} 🕺`;
   // Disables/enables the button based on the units collected
-  counter >= availableItems[0].price
-    ? (shopButtonA.disabled = false)
-    : (shopButtonA.disabled = true);
-  counter >= availableItems[1].price
-    ? (shopButtonB.disabled = false)
-    : (shopButtonB.disabled = true);
-  counter >= availableItems[2].price
-    ? (shopButtonC.disabled = false)
-    : (shopButtonC.disabled = true);
-  counter >= availableItems[3].price
-    ? (shopButtonD.disabled = false)
-    : (shopButtonD.disabled = true);
-  counter >= availableItems[4].price
-    ? (shopButtonE.disabled = false)
-    : (shopButtonE.disabled = true);
+  availableItems.forEach((item, i) => {
+    buttons[i].disabled = item.price > counter;
+  });
 }
 
 // Step 7
@@ -156,57 +121,59 @@ const row4 = document.createElement("div");
 const row5 = document.createElement("div");
 
 const priceA = document.createElement("div");
-priceA.style.marginRight = "auto";
 const priceB = document.createElement("div");
-priceB.style.marginRight = "auto";
 const priceC = document.createElement("div");
-priceC.style.marginRight = "auto";
 const priceD = document.createElement("div");
-priceD.style.marginRight = "auto";
 const priceE = document.createElement("div");
-priceE.style.marginRight = "auto";
+const prices = [priceA, priceB, priceC, priceD, priceE];
+prices.forEach((price) => {
+  price.style.marginRight = "auto";
+});
 
 const itemA = document.createElement("div");
 const itemB = document.createElement("div");
 const itemC = document.createElement("div");
 const itemD = document.createElement("div");
 const itemE = document.createElement("div");
+const items = [itemA, itemB, itemC, itemD, itemE];
 
 const button = document.createElement("button");
 const counterText = document.createElement("h3");
 const shopButtonA = document.createElement("button");
-shopButtonA.style.justifyContent = "flex-start";
 const shopButtonB = document.createElement("button");
-shopButtonB.style.justifyContent = "flex-start";
 const shopButtonC = document.createElement("button");
-shopButtonC.style.justifyContent = "flex-start";
 const shopButtonD = document.createElement("button");
-shopButtonD.style.justifyContent = "flex-start";
 const shopButtonE = document.createElement("button");
-shopButtonE.style.justifyContent = "flex-start";
-
+const buttons = [
+  shopButtonA,
+  shopButtonB,
+  shopButtonC,
+  shopButtonD,
+  shopButtonE,
+];
+buttons.forEach((button) => {
+  button.style.justifyContent = "flex-start";
+});
 // Styling it so everything can fit in a line
 row1.appendChild(shopButtonA);
 row1.appendChild(priceA);
 row1.appendChild(itemA);
-row1.style.display = "flex";
 row2.appendChild(shopButtonB);
 row2.appendChild(priceB);
 row2.appendChild(itemB);
-row2.style.display = "flex";
 row3.appendChild(shopButtonC);
 row3.appendChild(priceC);
 row3.appendChild(itemC);
-row3.style.display = "flex";
 row4.appendChild(shopButtonD);
 row4.appendChild(priceD);
 row4.appendChild(itemD);
-row4.style.display = "flex";
 row5.appendChild(shopButtonE);
 row5.appendChild(priceE);
 row5.appendChild(itemE);
-row5.style.display = "flex";
-
+const rows = [row1, row2, row3, row4, row5];
+rows.forEach((row) => {
+  row.style.display = "flex";
+});
 // Instructions
 const instructionsBold = document.createElement("div");
 instructionsBold.style.fontWeight = "bold";
@@ -250,22 +217,13 @@ counterText.innerHTML = `0 🕺`;
 button.innerHTML = "🕺";
 button.style.fontSize = "24px";
 button.addEventListener("click", () => increaseCounter(1), false);
-
-shopButtonA.innerHTML = availableItems[0].name;
-shopButtonA.disabled = true;
-shopButtonA.addEventListener("click", () => shop(1), false);
-shopButtonB.innerHTML = availableItems[1].name;
-shopButtonB.disabled = true;
-shopButtonB.addEventListener("click", () => shop(2), false);
-shopButtonC.innerHTML = availableItems[2].name;
-shopButtonC.disabled = true;
-shopButtonC.addEventListener("click", () => shop(3), false);
-shopButtonD.innerHTML = availableItems[3].name;
-shopButtonD.disabled = true;
-shopButtonD.addEventListener("click", () => shop(4), false);
-shopButtonE.innerHTML = availableItems[4].name;
-shopButtonE.disabled = true;
-shopButtonE.addEventListener("click", () => shop(5), false);
+buttons.forEach((button, i) => {
+  button.addEventListener("click", () => shop(i + 1), false);
+  button.innerHTML = availableItems[i].name;
+});
+availableItems.forEach((item, i) => {
+  buttons[i].disabled = item.price > counter;
+});
 
 app.append(header);
 app.append(instructionsBold);
