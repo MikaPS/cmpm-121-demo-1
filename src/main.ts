@@ -2,7 +2,7 @@ import "./style.css";
 
 const app: HTMLDivElement = document.querySelector("#app")!;
 
-const gameName = "Whale Game";
+const gameName = "Pet Band🤙";
 
 document.title = gameName;
 
@@ -15,19 +15,19 @@ interface Item {
 
 const availableItems: Item[] = [
   {
-    name: "A",
+    name: "🪗🦖",
     price: 10,
     rate: 0.1,
     purchased: 0,
   },
   {
-    name: "B",
+    name: "🎤🐟",
     price: 100,
     rate: 2,
     purchased: 0,
   },
   {
-    name: "C",
+    name: "🎻🦐",
     price: 1000,
     rate: 50,
     purchased: 0,
@@ -36,7 +36,7 @@ const availableItems: Item[] = [
 
 function updateText() {
   growthRate.innerHTML =
-    "Wow! You are getting " + rateTotal.toFixed(2) + "🐳per sec!";
+    "Wow! You are getting " + rateTotal.toFixed(2) + "🕺 per sec!";
   items.forEach((item, i) => {
     item.innerHTML =
       availableItems[i].price.toFixed(2) +
@@ -52,7 +52,7 @@ function updateText() {
 let counter: number = 0;
 function increaseCounter(change: number) {
   counter += change;
-  counterText.innerHTML = `${counter.toFixed(1)} 🐳`;
+  counterText.innerHTML = `${counter.toFixed(1)} 🕺`;
   // Disables/enables the button based on the units collected
   availableItems.forEach((item, i) => {
     buttons[i].disabled = item.price > counter;
@@ -120,8 +120,8 @@ buttons.forEach((button) => {
 });
 
 header.innerHTML = gameName;
-counterText.innerHTML = `0 🐳`;
-button.innerHTML = "🐳";
+counterText.innerHTML = `0 🕺`;
+button.innerHTML = "🕺";
 button.style.fontSize = "24px";
 button.addEventListener("click", () => increaseCounter(1), false);
 buttons.forEach((button, i) => {
