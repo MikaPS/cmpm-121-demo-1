@@ -6,6 +6,8 @@ const gameName = "Pet Band🤙";
 
 document.title = gameName;
 
+// Step 9 - on the Discord it says we can start the data driven design early, so I started working on it at step 6
+// The message was sent on 10/07/2023
 interface Item {
   name: string;
   price: number;
