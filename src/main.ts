@@ -39,7 +39,7 @@ function updateText() {
     "Wow! You are getting " + rateTotal.toFixed(2) + "🐳per sec!";
   items.forEach((item, i) => {
     item.innerHTML =
-      availableItems[i].price +
+      availableItems[i].price.toFixed(2) +
       " (+" +
       availableItems[i].rate.toFixed(2) +
       "🕺/sec)";
@@ -67,6 +67,7 @@ function shop(itemType: number) {
     // If there are enough units, make the upgrades
     counter -= availableItems[itemType].price;
     rateTotal += availableItems[itemType].rate;
+    availableItems[itemType].price *= 1.15; // Increase price by a factor of 1.15
     availableItems[itemType].purchased += 1;
     // Update text
     updateText();
