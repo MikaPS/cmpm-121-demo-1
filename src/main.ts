@@ -6,6 +6,8 @@ const gameName = "Pet Band🤙";
 
 document.title = gameName;
 
+// Step 9 - on the Discord it says we can start the data driven design early, so I started working on it at step 6
+// The message was sent on 10/07/2023
 interface Item {
   name: string;
   price: number;
@@ -92,31 +94,39 @@ requestAnimationFrame(() => automate(performance.now()));
 
 const header = document.createElement("h1");
 const growthRate = document.createElement("div");
-const row1 = document.createElement("div");
-const row2 = document.createElement("div");
-const row3 = document.createElement("div");
-
-const purchaseA = document.createElement("div");
-const purchaseB = document.createElement("div");
-const purchaseC = document.createElement("div");
-const purchases = [purchaseA, purchaseB, purchaseC];
-purchases.forEach((purchase) => {
-  purchase.style.marginRight = "auto";
-});
-
-const itemA = document.createElement("div");
-const itemB = document.createElement("div");
-const itemC = document.createElement("div");
-const items = [itemA, itemB, itemC];
 
 const button = document.createElement("button");
 const counterText = document.createElement("div");
-const shopButtonA = document.createElement("button");
-const shopButtonB = document.createElement("button");
-const shopButtonC = document.createElement("button");
-const buttons = [shopButtonA, shopButtonB, shopButtonC];
-buttons.forEach((button) => {
+const buttons: HTMLButtonElement[] = [];
+const items: HTMLDivElement[] = [];
+const purchases: HTMLDivElement[] = [];
+const rows: HTMLDivElement[] = [];
+
+availableItems.forEach((obj, i) => {
+  // buttons
+  const button = document.createElement("button");
   button.style.justifyContent = "flex-start";
+  button.addEventListener("click", () => shop(i), false);
+  button.innerHTML = obj.name;
+  button.disabled = obj.price > counter;
+  buttons.push(button);
+
+  // items
+  const item = document.createElement("div");
+  items.push(item);
+
+  // purchases
+  const purchase = document.createElement("div");
+  purchase.style.marginRight = "auto";
+  purchases.push(purchase);
+
+  // rows
+  const row = document.createElement("div");
+  row.appendChild(button);
+  row.appendChild(purchase);
+  row.appendChild(item);
+  row.style.display = "flex";
+  rows.push(row);
 });
 
 header.innerHTML = gameName;
@@ -124,13 +134,6 @@ counterText.innerHTML = `0 🕺`;
 button.innerHTML = "🕺";
 button.style.fontSize = "24px";
 button.addEventListener("click", () => increaseCounter(1), false);
-buttons.forEach((button, i) => {
-  button.addEventListener("click", () => shop(i), false);
-  button.innerHTML = availableItems[i].name;
-});
-availableItems.forEach((item, i) => {
-  buttons[i].disabled = item.price > counter;
-});
 
 // Instructions
 const instructionsBold = document.createElement("div");
@@ -174,13 +177,7 @@ app.append(instructionsButton);
 app.append(counterText);
 app.append(growthRate);
 app.append(button);
-// Styling it so everything can fit in a line
-const rows = [row1, row2, row3];
-rows.forEach((row, i) => {
-  row.appendChild(buttons[i]);
-  row.appendChild(purchases[i]);
-  row.appendChild(items[i]);
-  row.style.display = "flex";
+rows.forEach((row) => {
   app.append(row);
 });
 updateText();
